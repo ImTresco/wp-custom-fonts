@@ -1,0 +1,87 @@
+.dgzz-container {
+    padding: 10px 20px 10px 0;
+}
+
+.dgzz-container h1 {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.dgzz-container .dgzz-custom-font-container {
+    display: flex;
+}
+
+
+
+/* =============== */
+/* LIST */
+/* =============== */
+
+.dgzz-container .dgzz-custom-font-container .dgzz-custom-font-list {
+    width: 66%;
+    height: 500px;
+    margin: 10px;
+}
+
+.dgzz-container .dgzz-custom-font-container .dgzz-custom-font-list ul li{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    margin: 0;
+}
+
+.dgzz-container .dgzz-custom-font-container .dgzz-custom-font-list ul li:nth-child(1){
+    border-top: 1px solid #ddd;
+}
+
+.dgzz-container .dgzz-custom-font-container .dgzz-custom-font-list ul li p{
+    padding-left: 10px;
+    margin: 0;
+}
+
+.dgzz-container .dgzz-custom-font-container .dgzz-custom-font-list ul li .action-btn a {
+    padding: 0 10px 0 0;
+    transition: .2s;
+    margin: 0;
+}
+
+.dgzz-container .dgzz-custom-font-container .dgzz-custom-font-list ul li .action-btn a:hover {
+    color: #7777ff;
+    transition: .2s;
+}
+
+.dgzz-container .dgzz-custom-font-container .dgzz-custom-font-list ul li .action-btn a.delete {
+    color: #770000;
+}
+
+.dgzz-container .dgzz-custom-font-container .dgzz-custom-font-list ul li .action-btn a.delete:hover {
+    color: #ff0000;
+    transition: .2s;
+}
+
+
+
+
+
+/* =============== */
+/* SIDEBAR */
+/* =============== */
+
+.dgzz-container .dgzz-custom-font-container .dgzz-custom-font-sidebar {
+    width: 33%;
+    height: fit-content;
+    background-color: #fff;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.dgzz-container .dgzz-custom-font-container .dgzz-custom-font-sidebar a{
+    background: #007cba;
+    padding: 20px;
+    text-decoration: none;
+    color: #fff;
+    text-transform: uppercase;
+}
