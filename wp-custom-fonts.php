@@ -48,6 +48,7 @@ class WPCF_Plugin {
 
 		add_action( 'admin_enqueue_scripts', [$this, 'dgzz_admin_scripts'] );
         add_filter( 'upload_mimes', [$this,'add_custom_upload_mimes'] );
+		add_filter( 'wp_check_filetype_and_ext', array( $this, 'update_mime_types' ), 10, 3 );
 		add_action( 'admin_menu', [$this, 'dgzz_admin_add_menu_page'] );
 		add_action( 'admin_menu', [$this, 'dgzz_remove_menu_items'] );
 		add_filter( 'csf_field_typography_customwebfonts', [$this, 'dgzz_add_fonts_to_lists'] );
@@ -80,12 +81,26 @@ class WPCF_Plugin {
 	}
 
 	public function add_custom_upload_mimes($existing_mimes) {
-		$existing_mimes['otf'] = 'application/x-font-otf';
+		$existing_mimes['otf'] = 'font/otf';
 		$existing_mimes['woff'] = 'application/x-font-woff';
 		$existing_mimes['ttf'] = 'application/x-font-ttf';
 		$existing_mimes['svg'] = 'image/svg+xml';
 		$existing_mimes['eot'] = 'application/vnd.ms-fontobject';
 		return $existing_mimes;
+	}
+
+	public function update_mime_types( $defaults, $file, $filename ) {
+		if ( 'ttf' === pathinfo( $filename, PATHINFO_EXTENSION ) ) {
+			$defaults['type'] = 'application/x-font-ttf';
+			$defaults['ext']  = 'ttf';
+		}
+
+		if ( 'otf' === pathinfo( $filename, PATHINFO_EXTENSION ) ) {
+			$defaults['type'] = 'application/x-font-otf';
+			$defaults['ext']  = 'otf';
+		}
+
+		return $defaults;
 	}
 
 	public function dgzz_admin_scripts() {
@@ -269,14 +284,14 @@ class WPCF_Plugin {
 			return $post_id;
 		}
 
-		var_dump($post_id);
-
 		$fonts_ext = [
 			'woff2', 'woff', 'ttf', 'eot', 'svg', 'otf'
 		];
 
 		foreach ($fonts_ext as $font_ext) {
-			$fonts_meta['dgzz-cf-'.$font_ext] = esc_textarea( $_POST['dgzz-cf-'.$font_ext] );
+			if (isset($_POST['dgzz-cf-'.$font_ext])) {
+				$fonts_meta['dgzz-cf-'.$font_ext] = esc_textarea( $_POST['dgzz-cf-'.$font_ext] );
+			}
 		}
 
 		if (isset($fonts_meta)) {
