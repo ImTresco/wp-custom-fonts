@@ -3,7 +3,7 @@
  * Plugin Name: WP Custom Fonts
  * Author: Damiano Giacomazzi
  * Author URI: https://www.damianogiacomazzi.com/
- * Version: 1.0.0
+ * Version: 1.0.1
  * Text Domain: dgzz
  * Description: Upload your custom fonts.
  */
@@ -204,7 +204,7 @@ class WPCF_Plugin {
 	}
 
 	public function dgzz_remove_menu_items() {
-		//remove_menu_page( 'edit.php?post_type=dgzz_wp_custom_fonts' );
+		remove_menu_page( 'edit.php?post_type=dgzz_wp_custom_fonts' );
 	}
 
 

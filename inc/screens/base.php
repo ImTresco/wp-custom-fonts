@@ -1,5 +1,6 @@
 <?php 
-
+    $wpcf = WPCF_Plugin::getInstance(); 
+    $wpcf->dgzz_add_fonts_style();
 ?>
 
 <div class="dgzz-container">
@@ -7,7 +8,6 @@
     
     <div class="dgzz-custom-font-container">
         <div class="dgzz-custom-font-list">
-            <h2><?php echo __('Custom Font List', 'dgzz') ?></h2>
             <?php
 
             $args = [
@@ -22,7 +22,7 @@
                     $the_query->the_post();
                     echo 
                         '<li>
-                            <p>' . get_the_title() . '</p>
+                            <p style="font-family: ' .  get_the_title() . '; font-weight: 400; ">' . get_the_title() . '</p>
                             <div class="action-btn">
                                 <a class="edit" href="post.php?post=' . get_the_ID() . '&action=edit">' . __('Edit', 'dgzz') .'</a>
                                 <a class="delete" href="' . get_delete_post_link(get_the_ID()) . '">' . __('Delete', 'dgzz') .'</a>

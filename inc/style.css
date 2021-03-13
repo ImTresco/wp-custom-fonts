@@ -8,6 +8,7 @@
 }
 
 .dgzz-container .dgzz-custom-font-container {
+    margin-top: 50px;
     display: flex;
 }
 
@@ -38,6 +39,8 @@
 .dgzz-container .dgzz-custom-font-container .dgzz-custom-font-list ul li p{
     padding-left: 10px;
     margin: 0;
+    font-size: 25px;
+    line-height: 29px;
 }
 
 .dgzz-container .dgzz-custom-font-container .dgzz-custom-font-list ul li .action-btn a {
@@ -71,7 +74,6 @@
 .dgzz-container .dgzz-custom-font-container .dgzz-custom-font-sidebar {
     width: 33%;
     height: fit-content;
-    background-color: #fff;
     margin: 10px;
     display: flex;
     justify-content: center;
@@ -84,4 +86,12 @@
     text-decoration: none;
     color: #fff;
     text-transform: uppercase;
+    font-weight: 700;
+}
+
+@media screen and (max-width: 732px) {
+    .dgzz-container .dgzz-custom-font-container {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
 }
