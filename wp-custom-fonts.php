@@ -3,7 +3,7 @@
  * Plugin Name: WP Custom Fonts
  * Author: Damiano Giacomazzi
  * Author URI: https://www.damianogiacomazzi.com/
- * Version: 1.0.1
+ * Version: 1.0.2
  * Text Domain: dgzz
  * Description: Upload your custom fonts.
  */
@@ -41,14 +41,16 @@ class WPCF_Plugin {
 
         add_action( 'init', [$this, 'init'] );
         add_action( 'init', [$this, 'dgzz_fonts_cpt'] );
-  
+
     }
 
     public function init() {
 
-		add_action( 'admin_enqueue_scripts', [$this, 'dgzz_admin_scripts'] );
         add_filter( 'upload_mimes', [$this,'add_custom_upload_mimes'] );
 		add_filter( 'wp_check_filetype_and_ext', array( $this, 'update_mime_types' ), 10, 3 );
+		wp_enqueue_media();
+		add_action( 'admin_enqueue_scripts', [$this, 'dgzz_admin_scripts'] );
+		add_action( 'admin_enqueue_scripts', [$this, 'dgzz_admin_styles'] );
 		add_action( 'admin_menu', [$this, 'dgzz_admin_add_menu_page'] );
 		add_action( 'admin_menu', [$this, 'dgzz_remove_menu_items'] );
 		add_filter( 'csf_field_typography_customwebfonts', [$this, 'dgzz_add_fonts_to_lists'] );
@@ -104,8 +106,11 @@ class WPCF_Plugin {
 	}
 
 	public function dgzz_admin_scripts() {
-		wp_enqueue_style( 'plugin-css', WPCF_PLUGIN_URL . 'inc/style.css' );
 		wp_enqueue_script( 'main-js', WPCF_PLUGIN_URL . 'inc/main.js', ['jquery'], '1.0.0', true );
+	}
+
+	public function dgzz_admin_styles() {
+		wp_enqueue_style( 'plugin-css', WPCF_PLUGIN_URL . 'inc/style.css' );
 	}
 
 
@@ -232,49 +237,67 @@ class WPCF_Plugin {
 		
 		wp_reset_postdata();
 
-		wp_nonce_field( basename( __FILE__ ), 'dgzz_cf_fields' );
+		wp_nonce_field( basename( __FILE__ ), 'dgzz_cf_fields_woff2' );
 		$name = get_post_meta( get_the_ID(), 'dgzz-cf-woff2', true );
-		echo '<input type="text" name="dgzz-cf-woff2" value="' . esc_textarea( $name )  . '" class="widefat">';
+		echo '<div class="dgzz-input-container">';
+		echo '<input type="text" name="dgzz-cf-woff2" id="dgzz-cf-woff2" value="' . esc_textarea( $name )  . '" class="widefat">';
+		echo '<input class="dgzz-cf-font-upload" id="dgzz-cf-woff2-upload" type="button" value="Upload Font" />';
+		echo '</div>';
 	}
 
 	public function dgzz_add_font_field_woff() {
 		global $post;
 
-		wp_nonce_field( basename( __FILE__ ), 'dgzz_cf_fields' );
+		wp_nonce_field( basename( __FILE__ ), 'dgzz_cf_fields_woff' );
 		$name = get_post_meta( $post->ID, 'dgzz-cf-woff', true );
-		echo '<input type="text" name="dgzz-cf-woff" value="' . esc_textarea( $name )  . '" class="widefat">';
+		echo '<div class="dgzz-input-container">';
+		echo '<input type="text" name="dgzz-cf-woff" id="dgzz-cf-woff" value="' . esc_textarea( $name )  . '" class="widefat">';
+		echo '<input class="dgzz-cf-font-upload" id="dgzz-cf-woff-upload" type="button" value="Upload Font" />';
+		echo '</div>';
 	}
 
 	public function dgzz_add_font_field_ttf() {
 		global $post;
 
-		wp_nonce_field( basename( __FILE__ ), 'dgzz_cf_fields' );
+		wp_nonce_field( basename( __FILE__ ), 'dgzz_cf_fields_ttf' );
 		$name = get_post_meta( $post->ID, 'dgzz-cf-ttf', true );
-		echo '<input type="text" name="dgzz-cf-ttf" value="' . esc_textarea( $name )  . '" class="widefat">';
+		echo '<div class="dgzz-input-container">';
+		echo '<input type="text" name="dgzz-cf-ttf" id="dgzz-cf-ttf" value="' . esc_textarea( $name )  . '" class="widefat">';
+		echo '<input class="dgzz-cf-font-upload" id="dgzz-cf-ttf-upload" type="button" value="Upload Font" />';
+		echo '</div>';
 	}
 
 	public function dgzz_add_font_field_eot() {
 		global $post;
 
-		wp_nonce_field( basename( __FILE__ ), 'dgzz_cf_fields' );
+		wp_nonce_field( basename( __FILE__ ), 'dgzz_cf_fields_eot' );
 		$name = get_post_meta( $post->ID, 'dgzz-cf-eot', true );
-		echo '<input type="text" name="dgzz-cf-eot" value="' . esc_textarea( $name )  . '" class="widefat">';
+		echo '<div class="dgzz-input-container">';
+		echo '<input type="text" name="dgzz-cf-eot" id="dgzz-cf-eot" value="' . esc_textarea( $name )  . '" class="widefat">';
+		echo '<input class="dgzz-cf-font-upload" id="dgzz-cf-eot-upload" type="button" value="Upload Font" />';
+		echo '</div>';
 	}
 
 	public function dgzz_add_font_field_svg() {
 		global $post;
 
-		wp_nonce_field( basename( __FILE__ ), 'dgzz_cf_fields' );
+		wp_nonce_field( basename( __FILE__ ), 'dgzz_cf_fields_svg' );
 		$name = get_post_meta( $post->ID, 'dgzz-cf-svg', true );
-		echo '<input type="text" name="dgzz-cf-svg" value="' . esc_textarea( $name )  . '" class="widefat">';
+		echo '<div class="dgzz-input-container">';
+		echo '<input type="text" name="dgzz-cf-svg" id="dgzz-cf-svg" value="' . esc_textarea( $name )  . '" class="widefat">';
+		echo '<input class="dgzz-cf-font-upload" id="dgzz-cf-svg-upload" type="button" value="Upload Font" />';
+		echo '</div>';
 	}
 
 	public function dgzz_add_font_field_otf() {
 		global $post;
 
-		wp_nonce_field( basename( __FILE__ ), 'dgzz_cf_fields' );
+		wp_nonce_field( basename( __FILE__ ), 'dgzz_cf_fields_otf' );
 		$name = get_post_meta( $post->ID, 'dgzz-cf-otf', true );
-		echo '<input type="text" name="dgzz-cf-otf" value="' . esc_textarea( $name )  . '" class="widefat">';
+		echo '<div class="dgzz-input-container">';
+		echo '<input type="text" name="dgzz-cf-otf" id="dgzz-cf-otf" value="' . esc_textarea( $name )  . '" class="widefat">';
+		echo '<input class="dgzz-cf-font-upload" id="dgzz-cf-otf-upload" type="button" value="Upload Font" />';
+		echo '</div>';
 	}
 	
 

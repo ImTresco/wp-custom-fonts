@@ -89,6 +89,10 @@
     font-weight: 700;
 }
 
+.dgzz-input-container {
+    display: flex;
+}
+
 @media screen and (max-width: 732px) {
     .dgzz-container .dgzz-custom-font-container {
         flex-direction: column-reverse;
